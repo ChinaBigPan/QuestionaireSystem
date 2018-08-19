@@ -1,0 +1,13 @@
+:root {
+  --orangeColor: orangered;
+  --textColor: blue;
+}
+
+.components-ydheader {
+  & h1 {
+    background: var(--orangeColor);
+    color: var(--textColor);
+  }
+}
+  
+

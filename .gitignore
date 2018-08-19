@@ -1,0 +1,12 @@
+.idea/
+.DS_Store
+node_modules/
+build/
+.sass-cache/
+npm-debug.log
+*.json.gzip
+npm-debug.log.*
+*.rdb
+manifest.json
+/server/boot/config.js
+.project
