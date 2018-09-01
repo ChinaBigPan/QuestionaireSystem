@@ -11,23 +11,25 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 // 
 
 module.exports = {
-  rules: [
-    {
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-      loader: 'url-loader',
-      query: {
-        name: '[path][name].[ext]?[hash]',
-        limit: 10000
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          name: '[path][name].[ext]?[hash]',
+          limit: 10000
+        }
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+        query: {
+          name: '[path][name].[ext]?[hash]', 
+        }
       }
-    },
-    {
-      test: /\.(eot|ttf|wav|mp3)$/,
-      loader: 'file-loader',
-      query: {
-        name: '[path][name].[ext]?[hash]', 
-      }
-    }
-  ],
+    ]
+  },
   optimization: {
     runtimeChunk: {
       name: 'manifest'

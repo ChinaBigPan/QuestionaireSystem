@@ -1,5 +1,4 @@
 import { GET, route } from 'awilix-koa'
-
 export default
 @route("/")
 @route("/index.html")
@@ -11,8 +10,9 @@ class IndexController {
 
   @GET()
   async indexAction(ctx) {
+    console.log('index===')
     const result = await this.indexService.getData();
-    ctx.body = await ctx.render('index', {
+    ctx.body = await ctx.render('index/pages/index', {
       data: result
     })
   }

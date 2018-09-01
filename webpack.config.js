@@ -9,30 +9,31 @@ const HappyWebpackPlugin = require("./config/happyWebpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { join, resolve } = require("path");
 const HTMLAfterWebpackPlugin = require("./config/htmlAfterWebpackPlugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const postcssPresetEnv = require('postcss-preset-env');
 
 // 配置
-const configDev = require('./config/webpack.development');
-const configProd = require('./config/webpack.production');
+// const configDev = require('./config/webpack.development');
+// const configProd = require('./config/webpack.production');
 
 // 配置vue
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 let _entry = {}; // 空的入口文件
 let _plugins = [];
-const files = glob.sync("./src/www/views/**/*.entry.ts");
+const files = glob.sync("./src/www/views/**/*.entry.js");
 // 将所有的entry文件放到entry配置里面
 // index-index.entry.ts
 // 验证文件的正则
-let matchedReg = /.+\/([a-zA-Z]+-[a-zA-Z]+)(\.entry\.ts$)/g;
-
+let matchedReg = /.+\/([a-zA-Z]+-[a-zA-Z]+)(\.entry\.js$)/g;
+console.log('files', files)
 for (let item of files) {
   if (matchedReg.test(item) == true) {
     const entryKey = RegExp.$1;
     // 需要规定好entry的名字
     _entry[entryKey] = item;
     const [dist, template] = entryKey.split("-");
+    console.log('dist', dist)
     _plugins.push(new HtmlWebpackPlugin({
       filename: `../views/${dist}/pages/${template}.html`,
       template: `src/www/views/${dist}/pages/${template}.html`,
@@ -45,7 +46,6 @@ for (let item of files) {
     }))
   }
 }
-
 let webpackConfig = {
   // 用正则匹配到views下面有多少entry
   entry: _entry,
@@ -53,23 +53,34 @@ let webpackConfig = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: [ 'vue-style-loader', { loader: "css-loader", options: {sourceMap: true} }],
+          },
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 20 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] 
+            })
+          ]
+          // other vue-loader options go here
+        }
       },
       {
         test:/\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // you can specify a publicPath here
-              // by default it use publicPath in webpackOptions.output
-              // publicPath: '../'
-            }
-          },
-          { loader: 'vue-style-loader' },
+          // { loader: 'vue-style-loader' },
+          // {
+          //   loader: MiniCssExtractPlugin.loader,
+          //   options: {
+          //     // you can specify a publicPath here
+          //     // by default it use publicPath in webpackOptions.output
+          //     // publicPath: '../'
+          //   }
+          // },
           { 
             loader: 'css-loader', 
-            options: { 
+            options: {
               importLoaders: 1,
               // 开启CSS Modules
               modules: true,
@@ -85,16 +96,23 @@ let webpackConfig = {
                 }
             }
           }
-          
         ]
       },
-      {
-        test: /\.ts?$/,
-        use: "happypack/loader?id=happyTS",
-        options: {
-          appendTsSuffixTo: [/.vue$/]
-        }
-      }
+      // {
+      //   test: /\.js$/,
+      //   exclude: /(node_modules|bower_components)/,
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: ['@babel/preset-env']
+      //     }
+      //   }
+      //   // test: /\.ts?$/,
+      //   // use: "happypack/loader?id=happyTS",
+      //   // options: {
+      //   //   appendTsSuffixTo: [/.vue$/]
+      //   // }
+      // }
     ]
   },
   output: {
@@ -106,12 +124,16 @@ let webpackConfig = {
     ..._plugins,
     ...HappyWebpackPlugin,
     new HTMLAfterWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: join(__dirname, "./src/www/views/index/pages/index.html")
+    }),
     new VueLoaderPlugin()
   ],
   resolve: {
-    extensions: [".ts", ".css"]
+    extensions: [".js", ".css"]
   }
 }
 
+// console.log(webpackConfig.entry);
 
 module.exports = merge(webpackConfig, _mergeConfig);
