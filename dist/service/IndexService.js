@@ -70,5 +70,7 @@ let IndexService = class IndexService {
     });
   }
 
+  updateQuestion(uid, qid) {}
+
 };
 exports.default = IndexService;

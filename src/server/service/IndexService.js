@@ -62,6 +62,10 @@ class IndexService {
     })
   }
 
+  updateQuestion(uid, qid) {
+    
+  }
+
 }
 
 export default IndexService
