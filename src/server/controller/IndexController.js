@@ -1,4 +1,4 @@
-import { GET, route } from 'awilix-koa'
+import { GET, route, POST } from 'awilix-koa'
 export default
 @route("/")
 @route("/index.html")
@@ -10,11 +10,21 @@ class IndexController {
 
   @GET()
   async indexAction(ctx) {
-    console.log('index===')
     const result = await this.indexService.getData();
     ctx.body = await ctx.render('index/pages/index', {
       data: result
     })
+  }
+
+  /**
+  * 添加题目
+  * @param {String} uid - 题目id
+  * @param {String} qtype - 题目类型
+  * @param {Object} questionObj - 题目对象
+  */
+  @POST()
+  async addQuestion(ctx) {
+    // const result = await this.indexService.addNewQuestion();
   }
 
 }

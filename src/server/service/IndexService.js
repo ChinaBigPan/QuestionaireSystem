@@ -39,6 +39,15 @@ class IndexService {
     })
   }
 
+  /**
+   * 添加新的问题
+   */
+  addNewQuestion(params) {
+    return new Promise((resolve, reject) => {
+      
+    })
+  }
+
 }
 
 export default IndexService

@@ -1,7 +1,7 @@
 <template>
   <div class="vue-entry">
     <vheader></vheader>
-    我是入口1111222
+    我是入口
   </div>
 </template>
 
