@@ -22,7 +22,7 @@ class IndexController {
   * @param {String} qtype - 题目类型
   * @param {Object} questionObj - 题目对象
   */
-  @route("/test")
+  @route("/gainQuestions")
   @POST()
   async addQuestion(ctx) {
     const result = await this.indexService.addNewQuestion();

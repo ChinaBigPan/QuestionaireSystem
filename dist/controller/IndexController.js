@@ -39,7 +39,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 exports.default = (
 // 路由啦
-_dec = (0, _awilixKoa.route)("/"), _dec2 = (0, _awilixKoa.route)("/index.html"), _dec3 = (0, _awilixKoa.GET)(), _dec4 = (0, _awilixKoa.route)("/test"), _dec5 = (0, _awilixKoa.POST)(), _dec(_class = _dec2(_class = (_class2 = class IndexController {
+_dec = (0, _awilixKoa.route)("/"), _dec2 = (0, _awilixKoa.route)("/index.html"), _dec3 = (0, _awilixKoa.GET)(), _dec4 = (0, _awilixKoa.route)("/gainQuestions"), _dec5 = (0, _awilixKoa.POST)(), _dec(_class = _dec2(_class = (_class2 = class IndexController {
   constructor({ indexService }) {
     this.indexService = indexService;
   }

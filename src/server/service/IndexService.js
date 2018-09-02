@@ -51,9 +51,10 @@ class IndexService {
   addNewQuestion(uid, qtype, questionObj) {
     return new Promise((resolve, reject) => {
       const url = `${tempParams.ip}/exam/question/add`;
-      axios.post(url, {
+      const paramObj = {
         uid, qtype, questionObj
-      }).then(function(res){
+      }
+      axios.post(url, JSON.stringify(paramObj)).then(function(res){
         resolve(res.data)
       }).catch(function(e){
         reject(e)
