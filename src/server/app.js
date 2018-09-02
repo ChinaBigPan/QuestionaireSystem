@@ -9,6 +9,8 @@ import log4js from 'log4js';
 // Awilix helpers, router and scope-instantiating middleware for Koa
 import { asClass, asValue, createContainer, Lifetime } from 'awilix';
 import { scopePerRequest, loadControllers } from 'awilix-koa'
+import cors from 'koa-cors';
+
 
 log4js.configure({
   appenders: { cheese: { type: 'file', filename: __dirname + '/logs/serverLog.log' } },
@@ -17,6 +19,7 @@ log4js.configure({
 const logger = log4js.getLogger('cheese');
 
 const app = new Koa();
+
 // 创建IOC（控制反转）容器
 const IOCcontainer = createContainer();
 // 每一次请求都是new 一次类
@@ -25,6 +28,8 @@ const IOCcontainer = createContainer();
 // 插入到构造函数里，不影响真正的逻辑
 // 每次要保证外面的service重新创建实例，所以必须要有控制反转实例
 app.use(scopePerRequest(IOCcontainer));
+app.use(cors());
+
 // 装载service
 IOCcontainer.loadModules([__dirname + '/service/*.js'], {
   formatName: "camelCase",
