@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", {
 let IndexService = class IndexService {
   /**
    * @constructor
-   * @param {String} app koa2的上下文s
+   * @param {String} app koa2的上下文
    */
   constructor(app) {}
 

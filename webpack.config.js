@@ -50,70 +50,91 @@ let webpackConfig = {
   // 用正则匹配到views下面有多少entry
   entry: _entry,
   module: {
+    // rules: [
+    //   {
+    //     test: /\.vue$/,
+    //     loader: 'vue-loader',
+    //     options: {
+    //       loaders: {
+    //         css: [ 'vue-style-loader', { loader: "css-loader", options: {sourceMap: true} }]
+    //       },
+    //       postcss: [
+    //         require('autoprefixer')({
+    //           browsers: ['last 20 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] 
+    //         })
+    //       ],
+    //       extractCSS: true
+    //       // other vue-loader options go here
+    //     }
+    //   },
+    //   {
+    //     test:/\.css$/,
+    //     use: [
+    //       { loader: 'vue-style-loader' },
+    //       // {
+    //       //   loader: MiniCssExtractPlugin.loader,
+    //       //   options: {
+    //       //     // you can specify a publicPath here
+    //       //     // by default it use publicPath in webpackOptions.output
+    //       //     // publicPath: '../'
+    //       //   }
+    //       // },
+    //       { 
+    //         loader: 'css-loader', 
+    //         options: {
+    //           importLoaders: 1,
+    //           // 开启CSS Modules
+    //           modules: true,
+    //           // 自定义生成的类名
+    //           localIdentName: '[local]_[hash:base64:4]'
+    //         } 
+    //       },
+    //       {
+    //         loader: 'postcss-loader',
+    //         options: {
+    //             config: {
+    //                 path: resolve(__dirname, './postcss.config.js')
+    //             }
+    //         }
+    //       }
+    //     ]
+    //   },
+    //   // {
+    //   //   test: /\.js$/,
+    //   //   exclude: /(node_modules|bower_components)/,
+    //   //   use: {
+    //   //     loader: 'babel-loader',
+    //   //     options: {
+    //   //       presets: ['@babel/preset-env']
+    //   //     }
+    //   //   }
+    //   //   // test: /\.ts?$/,
+    //   //   // use: "happypack/loader?id=happyTS",
+    //   //   // options: {
+    //   //   //   appendTsSuffixTo: [/.vue$/]
+    //   //   // }
+    //   // }
+    // ]
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            css: [ 'vue-style-loader', { loader: "css-loader", options: {sourceMap: true} }]
-          },
-          postcss: [
-            require('autoprefixer')({
-              browsers: ['last 20 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] 
-            })
-          ],
-          extractCSS: true
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
       },
+      // this will apply to both plain `.js` files
+      // AND `<script>` blocks in `.vue` files
       {
-        test:/\.css$/,
-        use: [
-          { loader: 'vue-style-loader' },
-          // {
-          //   loader: MiniCssExtractPlugin.loader,
-          //   options: {
-          //     // you can specify a publicPath here
-          //     // by default it use publicPath in webpackOptions.output
-          //     // publicPath: '../'
-          //   }
-          // },
-          { 
-            loader: 'css-loader', 
-            options: {
-              importLoaders: 1,
-              // 开启CSS Modules
-              modules: true,
-              // 自定义生成的类名
-              localIdentName: '[local]_[hash:base64:4]'
-            } 
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-                config: {
-                    path: resolve(__dirname, './postcss.config.js')
-                }
-            }
-          }
-        ]
+        test: /\.js$/,
+        loader: 'babel-loader'
       },
-      // {
-      //   test: /\.js$/,
-      //   exclude: /(node_modules|bower_components)/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: ['@babel/preset-env']
-      //     }
-      //   }
-      //   // test: /\.ts?$/,
-      //   // use: "happypack/loader?id=happyTS",
-      //   // options: {
-      //   //   appendTsSuffixTo: [/.vue$/]
-      //   // }
-      // }
+      // this will apply to both plain `.css` files
+      // AND `<style>` blocks in `.vue` files
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
+      }
     ]
   },
   output: {

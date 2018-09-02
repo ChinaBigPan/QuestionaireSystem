@@ -13,13 +13,13 @@
   }
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 :root {
-  --testGreen: green;
+  --green: blue;
 }
 
 .vue-entry {
-  color: var(--testGreen);
+  color: var(--green);
 }
 </style>
 

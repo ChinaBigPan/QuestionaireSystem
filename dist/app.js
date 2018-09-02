@@ -32,18 +32,24 @@ var _awilix = require('awilix');
 
 var _awilixKoa = require('awilix-koa');
 
+var _koaCors = require('koa-cors');
+
+var _koaCors2 = _interopRequireDefault(_koaCors);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Awilix helpers, router and scope-instantiating middleware for Koa
-
-// import router from 'koa-simple-router';
 _log4js2.default.configure({
   appenders: { cheese: { type: 'file', filename: __dirname + '/logs/serverLog.log' } },
   categories: { default: { appenders: ['cheese'], level: 'error' } }
 });
+// Awilix helpers, router and scope-instantiating middleware for Koa
+
+// import router from 'koa-simple-router';
+
 const logger = _log4js2.default.getLogger('cheese');
 
 const app = new _koa2.default();
+
 // 创建IOC（控制反转）容器
 const IOCcontainer = (0, _awilix.createContainer)();
 // 每一次请求都是new 一次类
@@ -52,6 +58,8 @@ const IOCcontainer = (0, _awilix.createContainer)();
 // 插入到构造函数里，不影响真正的逻辑
 // 每次要保证外面的service重新创建实例，所以必须要有控制反转实例
 app.use((0, _awilixKoa.scopePerRequest)(IOCcontainer));
+app.use((0, _koaCors2.default)());
+
 // 装载service
 IOCcontainer.loadModules([__dirname + '/service/*.js'], {
   formatName: "camelCase",
