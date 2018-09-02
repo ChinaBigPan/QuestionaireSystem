@@ -1,28 +1,36 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-/*
- * File: IndexModel.js
- * Project: structure-first
- * File Created: Saturday, 4th August 2018 1:42:24 pm
- * Author: Daguo (gxp5189468@163.com)
- * -----
- * Last Modified: Saturday, 4th August 2018 1:57:15 pm
- * Modified By: Daguo (gxp5189468@163.com>)
- * -----
- * Copyright 2018 - 2018 以后有了再说, 以后有了再说
- */
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * @fileOverview 实现Index数据模型
  */
+const tempParams = {
+  ip: '192.168.0.21'
 
-/**
- * IndexModel类 生成一段异步数据
- * @class
- */
+  /**
+   * IndexModel类 生成一段异步数据
+   * @class
+   */
+}; /*
+    * File: IndexModel.js
+    * Project: structure-first
+    * File Created: Saturday, 4th August 2018 1:42:24 pm
+    * Author: Daguo (gxp5189468@163.com)
+    * -----
+    * Last Modified: Saturday, 4th August 2018 1:57:15 pm
+    * Modified By: Daguo (gxp5189468@163.com>)
+    * -----
+    * Copyright 2018 - 2018 以后有了再说, 以后有了再说
+    */
 let IndexService = class IndexService {
   /**
    * @constructor
@@ -43,10 +51,22 @@ let IndexService = class IndexService {
   }
 
   /**
-   * 添加新的问题
+   * // 获取数据
+   * @param {Number} uid 
+   * @param {String} qtype 
+   * @param {Objevt} questionObj 
    */
-  addNewQuestion(params) {
-    return new Promise((resolve, reject) => {});
+  addNewQuestion(uid, qtype, questionObj) {
+    return new Promise((resolve, reject) => {
+      const url = `${tempParams.ip}/exam/question/add`;
+      _axios2.default.post(url, {
+        uid, qtype, questionObj
+      }).then(function (res) {
+        resolve(res.data);
+      }).catch(function (e) {
+        reject(e);
+      });
+    });
   }
 
 };

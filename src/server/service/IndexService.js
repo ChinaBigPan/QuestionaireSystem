@@ -9,10 +9,13 @@
  * -----
  * Copyright 2018 - 2018 以后有了再说, 以后有了再说
  */
-
+import axios from 'axios';
  /**
   * @fileOverview 实现Index数据模型
   */
+const tempParams = {
+  ip: '192.168.0.21'
+}
 
 /**
  * IndexModel类 生成一段异步数据
@@ -40,11 +43,21 @@ class IndexService {
   }
 
   /**
-   * 添加新的问题
+   * // 获取数据
+   * @param {Number} uid 
+   * @param {String} qtype 
+   * @param {Objevt} questionObj 
    */
-  addNewQuestion(params) {
+  addNewQuestion(uid, qtype, questionObj) {
     return new Promise((resolve, reject) => {
-      
+      const url = `${tempParams.ip}/exam/question/add`;
+      axios.post(url, {
+        uid, qtype, questionObj
+      }).then(function(res){
+        resolve(res.data)
+      }).catch(function(e){
+        reject(e)
+      })
     })
   }
 
