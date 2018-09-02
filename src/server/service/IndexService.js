@@ -17,6 +17,10 @@ const tempParams = {
   ip: '192.168.0.21'
 }
 
+// const tempParams = {
+//   ip: 'xxxxxxxx'
+// }
+
 /**
  * IndexModel类 生成一段异步数据
  * @class
@@ -52,18 +56,81 @@ class IndexService {
     return new Promise((resolve, reject) => {
       const url = `${tempParams.ip}/exam/question/add`;
       const paramObj = {
-        uid, qtype, questionObj
+        params: {
+          uid, qtype, questionObj
+        }
       }
-      axios.post(url, JSON.stringify(paramObj)).then(function(res){
+      axios.post(url, paramObj).then((res) => {
         resolve(res.data)
-      }).catch(function(e){
-        reject(e)
+      }).catch((error) => {
+        reject(error)
       })
     })
   }
 
+  /**
+   * 修改题目
+   * @param {Number} uid - 题目ID
+   * @param {String} qid - 题目类型
+   */
   updateQuestion(uid, qid) {
-    
+    return new Promise((resolve, reject) => {
+      const url = `${tempParams.ip}/exam/question/modify`;
+      const paramObj = {
+        params: {
+          uid, qid
+        }
+      }
+      axios.put(url, paramObj).then((res) => {
+        resolve(res.data);
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
+
+  /**
+   * 获取题目
+   * @param {Number} uid - 题目ID
+   * @param {String} qid - 题目类型
+   */
+  getQuestionDetail(uid, qid) {
+    return new Promise((resolve, reject) => {
+      const url = `${tempParams.ip}/exam/question/get`;
+      const param = {
+        params: {
+          uid, qid
+        }
+      }
+      axios.get(url, param).then((res) => {
+        resolve(res.data)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
+
+  /**
+   * 获取本人提交的题目列表
+   * @param {Number} uid - 用户ID
+   * @param {Number} page - 分页 
+   * @param {Number} count - 每页数量，最小值1，最大值100
+   * @param {Array} condition - 筛选条件数组。当前只支持审核是否通过这一个条件 
+   */
+  gainOnesSubmittedList(uid, page, count, condition = [ { 'auditing': 0 } ]) {
+    return new Promise((resolve, reject) => {
+      const url = `${tempParams.ip}/exam/question/list`;
+      const param = {
+        params: {
+          uid, page, count, condition
+        }
+      }
+      axios.get(url, param).then((res) => {
+        resolve(res.data);
+      }).catch((error) => {
+        reject(error);
+      })
+    })
   }
 
 }
