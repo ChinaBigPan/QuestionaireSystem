@@ -12,7 +12,7 @@
     "server:prod": "cross-env NODE_ENV=production gulp",
     "server:lint": "cross-env NODE_ENV=lint gulp",
     "start:dev": "cross-env NODE_ENV=development nodemon ./dist/app.js",
-    "client:dev": "webpack --mode development",
+    "client:dev": "webpack --mode development --watch",
     "client:prod": "webpack --mode production"
   },
   "author": "daguo",

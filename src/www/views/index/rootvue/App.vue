@@ -1,14 +1,20 @@
 <template>
   <div class="vue-entry">
-    我是入口
+    <vheader></vheader>
+    我是入口1111222
   </div>
 </template>
 
 <script type='text/javascript'>
+  import Header from './components/vheader.vue'
+
   export default {
     name: 'AppRoot',
     mounted() {
       console.log('我，根组件');
+    },
+    components: {
+      vheader: Header
     }
   }
 </script>
