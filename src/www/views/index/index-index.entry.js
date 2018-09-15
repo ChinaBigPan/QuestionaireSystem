@@ -1,12 +1,12 @@
 // import ydheader from "../../components/ydheader/ydheader";
 
 import Vue from 'vue';
-import ElementUI from 'element-ui';
+import Iview from 'iview';
 import App from './rootvue/App.vue';
 import router from './rootvue/router/router.js';
-import 'element-ui/lib/theme-chalk/index.css';
+import 'iview/dist/styles/iview.css';
 
-Vue.use(ElementUI);
+Vue.use(Iview);
 Vue.config.productionTip = false;
 
 new Vue({
