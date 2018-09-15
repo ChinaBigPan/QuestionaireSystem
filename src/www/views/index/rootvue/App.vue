@@ -2,6 +2,10 @@
   <div class="vue-entry">
     <vheader></vheader>
     我是入口
+        <router-link to="/">Go to Index</router-link>
+        <router-link to="/home">Go to Home</router-link>
+        <router-link to="/footers">Go to Footer</router-link>
+      <router-view></router-view>
   </div>
 </template>
 
